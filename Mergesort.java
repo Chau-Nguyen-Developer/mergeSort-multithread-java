@@ -4,14 +4,60 @@ public class Mergesort
     {
         int[] array = {8, 2, 5, 3, 4, 7, 6, 1};
         int len = array.length;
+        int middle = len / 2;
 
-        mergeSort(array);
+        //Create left array
+        int[] bigLeftArray = new int[middle];
+
+        //Copy elements from main array to sub-left array
+        for (int i = 0; i < middle; ++i)
+        {
+            bigLeftArray[i] = array[i];
+        }
+
+        //Create right array
+        int remainLen = len - middle;
+        int[] bigRightArray = new int[remainLen];
+
+        //Copy elements on second half part of the main array to right array.
+        for (int i = 0; i < remainLen; ++i)
+        {
+            bigRightArray[i] = array[middle + i];
+        }
+
+        //Create two threads to sort each half
+        System.out.println("Creating and doing merge sort on threads...");
+        Thread leftThread = new Thread(() -> mergeSort(bigLeftArray));
+        Thread rightThread = new Thread(() -> mergeSort(bigRightArray));
+
+        //Start two threads
+        leftThread.start();
+        rightThread.start();
+
+        //Wait for both threads to finish
+        try
+        {
+            leftThread.join();
+            rightThread.join();
+        }
+        catch(InterruptedException e)
+        {
+            System.out.println(e);
+            System.out.println("Error(s) happen when waiting for threads to join.");
+        }
+
+        merge(bigLeftArray, bigRightArray, array);
+
+        System.out.println("Merge sort finishes.");
+        System.out.println("Result: ");
+        //mergeSort(array);
 
         for (int i = 0; i < len; ++i)
         {
             System.out.print(array[i] + " ");
         }
         System.out.println();
+        
     }
 
     //PRIVATE FUNCTIONS
@@ -44,7 +90,8 @@ public class Mergesort
             rightArray[i] = givenArray[mid + i];
         }
        
-        //Call recursive merge sort function on these two sub arrays. 
+        //Call regular recursive merge sort function on these two sub arrays.
+        //No new threads here. 
         mergeSort(leftArray);
         mergeSort(rightArray);
 

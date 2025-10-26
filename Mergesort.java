@@ -25,7 +25,7 @@ public class Mergesort
 
         if(array == null)
         {
-            System.out.println("Having error in reading CSV file.");
+            System.out.println("Empty array.");
             //end the process
             return;
         }
@@ -123,20 +123,22 @@ public class Mergesort
         {
             System.err.println(e.getMessage());
             System.out.println("File Not Found.");
-            return null;
+            System.exit(1);
         }
         catch(IOException e)
         {
             System.out.println(e.getMessage());
             System.out.println("Errors with reading file.");
-            return null;
+            System.exit(1);
         }
         catch(NumberFormatException e)
         {
             System.out.println(e.getMessage());
             System.out.println("Errors with converting string to number.");
-            return null;
+            System.out.println("File has wrong format.");
+            System.exit(1);
         }
+        return null;
     }
 
     //RECURSIVE MERGESORT FUNCTION

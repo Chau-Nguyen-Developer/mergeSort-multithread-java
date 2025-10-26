@@ -1,10 +1,36 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.*;
+import java.io.*;
+
 public class Mergesort
 {
+    //Global variable
+    static int numberElements;
+
     public static void main(String args[])
     {
-        int[] array = {8, 2, 5, 3, 4, 7, 6, 1};
-        int len = array.length;
-        int middle = len / 2;
+        // int[] array = {8, 2, 5, 3, 4, 7, 6, 1};
+        // int len = array.length;
+
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Please enter CSV file name: ");
+        String myFile = scan.nextLine();
+
+        //READ IN FILE'S NAME
+        //String myFile = "input.csv";
+        int[] array = readArrayFromCSV(myFile);
+
+        if(array == null)
+        {
+            System.out.println("Having error in reading CSV file.");
+            //end the process
+            return;
+        }
+
+        int middle = numberElements / 2;
 
         //Create left array
         int[] bigLeftArray = new int[middle];
@@ -16,7 +42,7 @@ public class Mergesort
         }
 
         //Create right array
-        int remainLen = len - middle;
+        int remainLen = numberElements - middle;
         int[] bigRightArray = new int[remainLen];
 
         //Copy elements on second half part of the main array to right array.
@@ -52,7 +78,7 @@ public class Mergesort
         System.out.println("Result: ");
         //mergeSort(array);
 
-        for (int i = 0; i < len; ++i)
+        for (int i = 0; i < numberElements; ++i)
         {
             System.out.print(array[i] + " ");
         }
@@ -61,6 +87,58 @@ public class Mergesort
     }
 
     //PRIVATE FUNCTIONS
+    //READ ARRAY FROM CSV FILE
+    private static int[] readArrayFromCSV(String filePath)
+    {
+        try
+        {
+            BufferedReader myBuffer = new BufferedReader(new FileReader(filePath));
+            //Read the number of elements on the first line. 
+            String line = myBuffer.readLine();
+            if(line == null)
+            {
+                //empty array
+                return null;
+            }
+            numberElements = Integer.parseInt(line.trim());
+
+            //Read in the array on second line
+            line = myBuffer.readLine();
+            if(line == null)
+            {
+                return null; //empty array
+            }
+
+            String parts[] = line.split(",");
+            int[] theArray = new int [numberElements];
+
+            for (int i = 0; i < numberElements; ++i)
+            {
+                theArray[i] = Integer.parseInt(parts[i].trim());
+            }
+            myBuffer.close();
+            return theArray;
+        }
+        catch(FileNotFoundException e)
+        {
+            System.err.println(e.getMessage());
+            System.out.println("File Not Found.");
+            return null;
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Errors with reading file.");
+            return null;
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Errors with converting string to number.");
+            return null;
+        }
+    }
+
     //RECURSIVE MERGESORT FUNCTION
     private static void mergeSort(int[] givenArray)
     {
@@ -99,7 +177,7 @@ public class Mergesort
         merge(leftArray, rightArray, givenArray);
     }
 
-    //worry that values are pass by integer 
+     
     private static void merge(int[]leftArray, int[] rightArray, int[] mergedArray)
     {
         int leftLen = leftArray.length;

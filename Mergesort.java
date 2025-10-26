@@ -12,8 +12,7 @@ public class Mergesort
 
     public static void main(String args[])
     {
-        // int[] array = {8, 2, 5, 3, 4, 7, 6, 1};
-        // int len = array.length;
+        //READ IN USER'S INPUT FILE
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Make sure your CSV file only has two lines. Please refer to README.MD for example.");
@@ -22,7 +21,6 @@ public class Mergesort
         String myFile = scan.nextLine();
 
         //READ IN FILE'S NAME
-        //String myFile = "input.csv";
         int[] array = readArrayFromCSV(myFile);
 
         if(array == null)
@@ -78,8 +76,8 @@ public class Mergesort
 
         System.out.println("Merge sort finishes.");
         System.out.println("Result: ");
-        //mergeSort(array);
 
+        //print out result
         for (int i = 0; i < numberElements; ++i)
         {
             System.out.print(array[i] + " ");
@@ -95,8 +93,10 @@ public class Mergesort
         try
         {
             BufferedReader myBuffer = new BufferedReader(new FileReader(filePath));
+
             //Read the number of elements on the first line. 
             String line = myBuffer.readLine();
+
             if(line == null)
             {
                 //empty array
@@ -111,9 +111,11 @@ public class Mergesort
                 return null; //empty array
             }
 
+            //Use comma as delimiter to separate number
             String parts[] = line.split(",");
             int[] theArray = new int [numberElements];
 
+            //Numbers still have string format. Convert to that to integer.
             for (int i = 0; i < numberElements; ++i)
             {
                 theArray[i] = Integer.parseInt(parts[i].trim());
@@ -181,7 +183,7 @@ public class Mergesort
         merge(leftArray, rightArray, givenArray);
     }
 
-     
+     //MERGE TWO SUBARRAYS. TRAVERSE ELEMENTS OF BOTH ARRAYS AT THE SAME TIME AND CHOOSE OUT THE SMALLER ONE.
     private static void merge(int[]leftArray, int[] rightArray, int[] mergedArray)
     {
         int leftLen = leftArray.length;
@@ -194,7 +196,7 @@ public class Mergesort
         //Use while loop to compare elements from left array and right array
         while(indexLeft < leftLen && indexRight < rightLen)
        {
-            //Choose smaller elements btw two arrays to put it in main array 
+            //Choose smaller elements between two arrays to put it in main array 
             if(leftArray[indexLeft] < rightArray[indexRight])
             {
                 mergedArray[mainIndex] = leftArray[indexLeft];
@@ -205,7 +207,7 @@ public class Mergesort
                 mergedArray[mainIndex] = rightArray[indexRight];
                 ++indexRight;
             }
-            else //two elements equal
+            else //when two elements are equal
             {
                 mergedArray[mainIndex] = leftArray[indexLeft];
                 ++mainIndex;
@@ -215,7 +217,7 @@ public class Mergesort
             ++mainIndex;
        }
 
-        //In case left array still have elements
+        //In case left array still have elements and right array already finishes
         while(indexLeft < leftLen)
         {
             mergedArray[mainIndex] = leftArray[indexLeft];
@@ -223,7 +225,7 @@ public class Mergesort
             ++mainIndex;
         }
 
-        //In case right array still have elements
+        //In case right array still have elements and left array already finish
         while(indexRight < rightLen)
         {
             mergedArray[mainIndex] = rightArray[indexRight];

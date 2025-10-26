@@ -1,7 +1,7 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
+// import java.io.BufferedReader;
+// import java.io.FileReader;
+// import java.io.IOException;
+// import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 
@@ -16,7 +16,9 @@ public class Mergesort
         // int len = array.length;
 
         Scanner scan = new Scanner(System.in);
-        System.out.print("Please enter CSV file name: ");
+        System.out.println("Make sure your CSV file only has two lines. Please refer to README.MD for example.");
+        System.out.println("1st line: number of elements. 2nd line: integers seperated by commas and create an array.");
+        System.out.print("Please enter CSV file name (ex: test1.csv): ");
         String myFile = scan.nextLine();
 
         //READ IN FILE'S NAME

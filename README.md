@@ -27,10 +27,10 @@ You can create your test cases in the same folder of project.
 
 There are several ways to run the application.  
 
-#### Using Codesapce 
+#### Option 1. Using Codesapce 
 You can fork the project using your GitHub account, open GitHub Codespace, and use javac and java commands. (look at step 2 and 3 of "Using your device" section)
 
-#### Using your device (laptop/PC)
+#### Option 2. Using your device (laptop/PC)
 0. Make sure you have Java Virtual Machine installed in your device.  
 
 1. Download Zip files or clone this project into your chosen folder.  
@@ -59,6 +59,11 @@ Example:
 ![exampl file's input from user](images/example_input.png)  
 
 5. The process will automatically terminated when file is not found, file has wrong format, or file has empty array.  
+
+#### Option 3. Run .jar file  
+```
+java -jar Mergesort.jar
+```
 
 ### Some comments about multithreads
 The number of implemented threads is fixed in this application. I chose 3 threads instead of allowing each recursive call to make two threads as creating too many threads will cause many overheads (e.g. context switching overhead) and slow everything down.  

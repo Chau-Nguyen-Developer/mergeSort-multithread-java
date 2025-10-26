@@ -31,7 +31,7 @@ There are several ways to run the application.
 You can fork the project using your GitHub account, open GitHub Codespace, and use javac and java commands. (look at step 2 and 3 of "Using your device" section)
 
 #### Option 2. Using your device (laptop/PC)
-0. Make sure you have Java Virtual Machine installed in your device.  
+0. Make sure you have Java Runtime Environment (JRE) installed in your device.  
 
 1. Download Zip files or clone this project into your chosen folder.  
 For those who has Git install and want to clone it:
